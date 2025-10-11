@@ -97,7 +97,7 @@ public class NewsWebApp {
 
         // Hero section with About Website paragraph
         html.append("<div class='hero'>");
-        html.append("<h1>Personalized News Aggregator</h1>");
+        html.append("<h1>Newsify News Aggregator</h1>");
         html.append("<p>Welcome to our Personalized News Aggregator, a platform built to deliver the latest news directly to you. Covering categories like India, World, Business, Science, Health, Movies, and Sports, the website fetches real-time news using NewsAPI to ensure up-to-date information. Each article is displayed with an image, title, description, and date for easy reading. The interface is responsive on both desktop and mobile, and a dark/light mode toggle allows users to choose their preferred viewing theme. This project demonstrates full-stack development concepts using Java, HTML, CSS, and JSON parsing, and is built by a team of passionate AI & ML students from SRM Institute of Science and Technology.</p>");
         html.append("</div>");
 
@@ -220,3 +220,4 @@ public class NewsWebApp {
         return articlesList;
     }
 }
+
