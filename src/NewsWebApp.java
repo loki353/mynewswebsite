@@ -69,7 +69,7 @@ public class NewsWebApp {
         StringBuilder html = new StringBuilder();
         html.append("<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'>");
         html.append("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
-        html.append("<title>Personalized News Aggregator</title>");
+        html.append("<title>Articylst - News Aggregator</title>");
         html.append("<style>");
         html.append(":root { --bg:#0b0c10; --text:#e1e1e1; --card:#1f2833; --primary:#66fcf1; }");
         html.append("[data-theme='light'] { --bg:#ffffff; --text:#0b0c10; --card:#f4f4f4; --primary:#0077cc; }");
@@ -91,15 +91,29 @@ public class NewsWebApp {
         html.append("@media(max-width:768px){.team-card,.category-card,.guide-card{width:90%;}}");
         html.append("</style>");
         html.append("<script>function toggleTheme(){let theme=document.documentElement.getAttribute('data-theme');document.documentElement.setAttribute('data-theme',theme==='light'?'dark':'light');}</script>");
-        html.append("</head><body data-theme='dark'>");
-        html.append("<button class='toggle-btn' onclick='toggleTheme()'>Toggle Dark/Light Mode</button>");
+        html.append("</head><body data-theme='light'>");
+        
         html.append("<div class='container'>");
 
         // Hero section with About Website paragraph
         html.append("<div class='hero'>");
-        html.append("<h1>Newsify News Aggregator</h1>");
-        html.append("<p>Welcome to our Personalized News Aggregator, a platform built to deliver the latest news directly to you. Covering categories like India, World, Business, Science, Health, Movies, and Sports, the website fetches real-time news using NewsAPI to ensure up-to-date information. Each article is displayed with an image, title, description, and date for easy reading. The interface is responsive on both desktop and mobile, and a dark/light mode toggle allows users to choose their preferred viewing theme. This project demonstrates full-stack development concepts using Java, HTML, CSS, and JSON parsing, and is built by a team of passionate AI & ML students from SRM Institute of Science and Technology.</p>");
-        html.append("</div>");
+html.append("<h1>Articlyst News Aggregator</h1>");
+html.append("<p>🗞️ Welcome to Articlyst – Your Daily Dose of Real News!<br><br>"
+    + "Tired of scrolling endlessly to find what’s happening around you?<br>"
+    + "Articlyst brings everything you need — in one smart, simple, and beautiful place.<br><br>"
+    + "We collect the latest and most trusted news from reliable sources and deliver it to you instantly. "
+    + "From breaking national headlines to global events, technology trends, business updates, sports highlights, "
+    + "health breakthroughs, and entertainment buzz — you’ll find it all here!<br><br>"
+    + "Our goal is to make news reading easy, fast, and enjoyable.<br>"
+    + "Every story on Articlyst is carefully selected and neatly presented so that you can stay updated without wasting time. "
+    + "Whether you’re a student, professional, or just someone who loves staying informed, Articlyst is made for you.<br><br>"
+    + "Discover trending topics, inspiring stories, and must-know updates that shape our world every day. "
+    + "With Articlyst, you don’t just read the news — you experience it.<br><br>"
+    + "📱 Simple to use, 💬 easy to understand, and ⚡ powered by real-time updates — "
+    + "Articlyst keeps you closer to the world like never before.<br><br>"
+    + "Explore. Learn. Stay Ahead — with Articlyst: Where Every Headline Matters</p>");
+html.append("</div>");
+
 
         html.append("<h2>Explore Categories</h2>");
         html.append("<div class='categories'>");
@@ -219,4 +233,4 @@ public class NewsWebApp {
         }
         return articlesList;
     }
-}
+} 
