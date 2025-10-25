@@ -156,7 +156,7 @@ html.append("</div>");
         html.append("</style>");
         html.append("<script>function toggleTheme(){let theme=document.documentElement.getAttribute('data-theme');document.documentElement.setAttribute('data-theme',theme==='light'?'dark':'light');}</script>");
         html.append("</head><body data-theme='light'>");
-        html.append("<button class='toggle-btn' onclick='toggleTheme()'>Toggle Dark/Light Mode</button>");
+        
         html.append("<div class='container'><h2>Category: " + category.toUpperCase() + "</h2>");
 
         List<Map<String, String>> articles = fetchNews(category);
