@@ -107,7 +107,8 @@ public class NewsWebApp {
         }
     }
 
-  private static String getMainPage(int visitors) {
+ private static String getMainPage(int visitors) {
+    System.out.println(">>> LOADED NEW MAIN PAGE");
     StringBuilder html = new StringBuilder();
     html.append("<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'>");
     html.append("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
@@ -423,4 +424,5 @@ public class NewsWebApp {
         return articlesList;
     }
 }
+
 
