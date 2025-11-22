@@ -107,74 +107,106 @@ public class NewsWebApp {
         }
     }
 
-    private static String getMainPage(int visitors) {
-        StringBuilder html = new StringBuilder();
-        html.append("<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'>");
-        html.append("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
-        html.append("<title>Articlyst - News Aggregator</title>");
-        html.append("<style>");
-        html.append(":root { --bg:#0b0c10; --text:#e1e1e1; --card:#1f2833; --primary:#66fcf1; }");
-        html.append("[data-theme='light'] { --bg:#ffffff; --text:#0b0c10; --card:#f4f4f4; --primary:#0077cc; }");
-        html.append("body{margin:0;padding:0;font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);} ");
-        html.append(".container{width:90%;margin:auto;padding:40px 0;text-align:center;} ");
-        html.append(".hero{padding:60px 20px;} .hero h1{font-size:3em;color:var(--primary);margin-bottom:10px;} ");
-        html.append(".hero p{font-size:1.2em;max-width:800px;margin:auto;line-height:1.6em;} ");
-        html.append(".categories{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;margin-top:30px;} ");
-        html.append(".category-card{background:var(--card);width:180px;height:180px;border-radius:12px;overflow:hidden;text-decoration:none;color:var(--text);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:transform 0.3s;} ");
-        html.append(".category-card img{width:100%;height:100px;object-fit:contain;} ");
-        html.append(".category-card span{margin-top:8px;font-weight:bold;} ");
-        html.append(".category-card:hover{transform:translateY(-5px);box-shadow:0 10px 25px rgba(0,0,0,0.5);} ");
-        html.append(".team{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;margin-top:50px;} ");
-        html.append(".team-card{background:var(--card);padding:20px;border-radius:12px;width:250px;box-shadow:0 6px 15px rgba(0,0,0,0.5);transition:transform 0.3s;text-align:center;} ");
-        html.append(".team-card:hover{transform:translateY(-5px);} ");
-        html.append(".team-card img{width:150px;height:150px;object-fit:cover;border-radius:50%;margin-bottom:15px;border:3px solid var(--primary);} ");
-        html.append(".guide-card{background:var(--primary);color:#fff;padding:25px;border-radius:12px;width:300px;margin:20px auto;box-shadow:0 6px 15px rgba(0,0,0,0.5);} ");
-        html.append(".toggle-btn{position:fixed;top:10px;right:10px;padding:10px 20px;cursor:pointer;border:none;border-radius:8px;background:var(--primary);color:#fff;font-weight:bold;} ");
-        html.append("@media(max-width:768px){.team-card,.category-card,.guide-card{width:90%;}}");
-        html.append("</style>");
-        html.append("<script>function toggleTheme(){let theme=document.documentElement.getAttribute('data-theme');document.documentElement.setAttribute('data-theme',theme==='light'?'dark':'light');}</script>");
-        html.append("</head><body data-theme='light'>");
-        html.append("<div class='container'>");
-        html.append("<div class='hero'>");
-        html.append("<h1>Articlyst News Aggregator</h1>");
-        html.append("<p>🗞️ Welcome to Articlyst – Your Daily Dose of Real News!<br><br>"
-                + "Tired of scrolling endlessly to find what’s happening around you?<br>"
-                + "Articlyst brings everything you need — in one smart, simple, and beautiful place.<br><br>"
-                + "We collect the latest and most trusted news from reliable sources and deliver it to you instantly. "
-                + "From breaking national headlines to global events, technology trends, business updates, sports highlights, "
-                + "health breakthroughs, and entertainment buzz — you’ll find it all here!<br><br>"
-                + "Our goal is to make news reading easy, fast, and enjoyable.<br>"
-                + "Every story on Articlyst is carefully selected and neatly presented so you can stay updated without wasting time. "
-                + "Whether you’re a student, professional, or just someone who loves staying informed, Articlyst is made for you.<br><br>"
-                + "Discover trending topics, inspiring stories, and must-know updates that shape our world every day. "
-                + "With Articlyst, you don’t just read the news — you experience it.<br><br>"
-                + "📱 Simple to use, 💬 easy to understand, and ⚡ powered by real-time updates — "
-                + "Articlyst keeps you closer to the world like never before.<br><br>"
-                + "Explore. Learn. Stay Ahead — with Articlyst: Where Every Headline Matters</p>");
-        html.append("</div>");
+  private static String getMainPage(int visitors) {
+    StringBuilder html = new StringBuilder();
+    html.append("<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'>");
+    html.append("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
+    html.append("<title>Articlyst - News Aggregator</title>");
+    html.append("<style>");
+    html.append(":root { --bg:#0b0c10; --text:#e1e1e1; --card:#1f2833; --primary:#66fcf1; }");
+    html.append("[data-theme='light'] { --bg:#ffffff; --text:#0b0c10; --card:#f4f4f4; --primary:#0077cc; }");
+    html.append("body{margin:0;padding:0;font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);} ");
+    html.append(".container{width:90%;margin:auto;padding:20px 0 40px 0;text-align:center;} ");
+    html.append(".hero{padding:40px 20px;} .hero h1{font-size:3em;color:var(--primary);margin-bottom:10px;} ");
+    html.append(".hero p{font-size:1.2em;max-width:800px;margin:auto;line-height:1.6em;} ");
+    html.append(".categories{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;margin-top:30px;} ");
+    html.append(".category-card{background:var(--card);width:180px;height:180px;border-radius:12px;overflow:hidden;text-decoration:none;color:var(--text);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:transform 0.3s;} ");
+    html.append(".category-card img{width:100%;height:100px;object-fit:contain;} ");
+    html.append(".category-card span{margin-top:8px;font-weight:bold;} ");
+    html.append(".category-card:hover{transform:translateY(-5px);box-shadow:0 10px 25px rgba(0,0,0,0.5);} ");
+    html.append(".team{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;margin-top:50px;} ");
+    html.append(".team-card{background:var(--card);padding:20px;border-radius:12px;width:250px;box-shadow:0 6px 15px rgba(0,0,0,0.5);transition:transform 0.3s;text-align:center;} ");
+    html.append(".team-card:hover{transform:translateY(-5px);} ");
+    html.append(".team-card img{width:150px;height:150px;object-fit:cover;border-radius:50%;margin-bottom:15px;border:3px solid var(--primary);} ");
+    html.append(".guide-card{background:var(--primary);color:#fff;padding:25px;border-radius:12px;width:300px;margin:20px auto;box-shadow:0 6px 15px rgba(0,0,0,0.5);} ");
+    html.append(".top-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;background:rgba(0,0,0,0.4);position:sticky;top:0;backdrop-filter:blur(6px);z-index:10;} ");
+    html.append(".logo-text{font-weight:bold;font-size:1.2em;color:var(--primary);} ");
+    html.append(".menu-btn{padding:8px 14px;border-radius:8px;border:none;background:var(--primary);color:#000;font-weight:bold;cursor:pointer;} ");
+    html.append(".menu-panel{position:fixed;top:55px;right:15px;background:var(--card);border-radius:10px;box-shadow:0 10px 25px rgba(0,0,0,0.6);padding:10px 0;min-width:180px;display:none;z-index:20;} ");
+    html.append(".menu-panel a{display:block;padding:10px 16px;color:var(--text);text-decoration:none;font-size:0.95em;text-align:left;} ");
+    html.append(".menu-panel a:hover{background:rgba(255,255,255,0.08);} ");
+    html.append(".footer-links{margin-top:40px;font-size:0.9em;}");
+    html.append(".footer-links a{color:var(--primary);margin:0 8px;text-decoration:none;}");
+    html.append(".footer-links a:hover{text-decoration:underline;}");
+    html.append("@media(max-width:768px){.team-card,.category-card,.guide-card{width:90%;}.top-bar{padding:8px 14px;}}");
+    html.append("</style>");
+    html.append("<script>");
+    html.append("function toggleTheme(){let theme=document.documentElement.getAttribute('data-theme');document.documentElement.setAttribute('data-theme',theme==='light'?'dark':'light');}");
+    html.append("function toggleMenu(){var m=document.getElementById('menu-panel');if(m.style.display==='block'){m.style.display='none';}else{m.style.display='block';}}");
+    html.append("</script>");
+    html.append("</head><body data-theme='light'>");
 
-        html.append("<h2>Explore Categories</h2>");
-        html.append("<div class='categories'>");
-        html.append("<a class='category-card' href='/?category=india'><img src='/images/india.png'><span>India</span></a>");
-        html.append("<a class='category-card' href='/?category=world'><img src='/images/world.png'><span>World</span></a>");
-        html.append("<a class='category-card' href='/?category=movies'><img src='/images/movies.png'><span>Movies</span></a>");
-        html.append("<a class='category-card' href='/?category=sport'><img src='/images/sports.png'><span>Sport</span></a>");
-        html.append("<a class='category-card' href='/?category=health'><img src='/images/health.png'><span>Health</span></a>");
-        html.append("<a class='category-card' href='/?category=science'><img src='/images/science.png'><span>Science</span></a>");
-        html.append("<a class='category-card' href='/?category=business'><img src='/images/business.png'><span>Business</span></a>");
-        html.append("</div>");
+    html.append("<div class='top-bar'>");
+    html.append("<div class='logo-text'>Articlyst</div>");
+    html.append("<button class='menu-btn' onclick='toggleMenu()'>Menu ☰</button>");
+    html.append("</div>");
 
-        html.append("<h2>Our Team</h2>");
-        html.append("<div class='team'>");
-        html.append("<div class='team-card'><img src='/images/loki.jpg'><h3>B Lokesh</h3><p>A passionate Computer Science and Engineering (AI & ML) student at SRM Institute of Science and Technology, Trichy Campus.</p></div>");
-        html.append("<div class='team-card'><img src='/images/chethan.jpg'><h3>B Sai Chethan</h3><p>A passionate Computer Science and Engineering (AI & ML) student at SRM Institute of Science and Technology, Trichy Campus.</p></div>");
-        html.append("<div class='team-card'><img src='/images/nikhil.jpg'><h3>B Sai Nikhil</h3><p>A passionate Computer Science and Engineering (AI & ML) student at SRM Institute of Science and Technology, Trichy Campus.</p></div>");
-        html.append("</div>");
+    html.append("<div id='menu-panel' class='menu-panel'>");
+    html.append("<a href='/about'>About</a>");
+    html.append("<a href='/privacy'>Privacy Policy</a>");
+    html.append("<a href='/contact'>Contact</a>");
+    html.append("</div>");
 
-        html.append("<div class='guide-card'><h3>Dr. Naresh Kumar</h3><p>Faculty Guide<br>SRM Institute of Science and Technology</p></div>");
-        html.append("</div></body></html>");
-        return html.toString();
-    }
+    html.append("<div class='container'>");
+
+    html.append("<div class='hero'>");
+    html.append("<h1>Articlyst News Aggregator</h1>");
+    html.append("<p>🗞️ Welcome to Articlyst – Your Daily Dose of Real News!<br><br>"
+            + "Tired of scrolling endlessly to find what’s happening around you?<br>"
+            + "Articlyst brings everything you need — in one smart, simple, and beautiful place.<br><br>"
+            + "We collect the latest and most trusted news from reliable sources and deliver it to you instantly. "
+            + "From breaking national headlines to global events, technology trends, business updates, sports highlights, "
+            + "health breakthroughs, and entertainment buzz — you’ll find it all here!<br><br>"
+            + "Our goal is to make news reading easy, fast, and enjoyable.<br>"
+            + "Every story on Articlyst is carefully selected and neatly presented so you can stay updated without wasting time. "
+            + "Whether you’re a student, professional, or just someone who loves staying informed, Articlyst is made for you.<br><br>"
+            + "Discover trending topics, inspiring stories, and must-know updates that shape our world every day. "
+            + "With Articlyst, you don’t just read the news — you experience it.<br><br>"
+            + "📱 Simple to use, 💬 easy to understand, and ⚡ powered by real-time updates — "
+            + "Articlyst keeps you closer to the world like never before.<br><br>"
+            + "Explore. Learn. Stay Ahead — with Articlyst: Where Every Headline Matters</p>");
+    html.append("</div>");
+
+    html.append("<h2>Explore Categories</h2>");
+    html.append("<div class='categories'>");
+    html.append("<a class='category-card' href='/?category=india'><img src='/images/india.png'><span>India</span></a>");
+    html.append("<a class='category-card' href='/?category=world'><img src='/images/world.png'><span>World</span></a>");
+    html.append("<a class='category-card' href='/?category=movies'><img src='/images/movies.png'><span>Movies</span></a>");
+    html.append("<a class='category-card' href='/?category=sport'><img src='/images/sports.png'><span>Sport</span></a>");
+    html.append("<a class='category-card' href='/?category=health'><img src='/images/health.png'><span>Health</span></a>");
+    html.append("<a class='category-card' href='/?category=science'><img src='/images/science.png'><span>Science</span></a>");
+    html.append("<a class='category-card' href='/?category=business'><img src='/images/business.png'><span>Business</span></a>");
+    html.append("</div>");
+
+    html.append("<h2>Our Team</h2>");
+    html.append("<div class='team'>");
+    html.append("<div class='team-card'><img src='/images/loki.jpg'><h3>B Lokesh</h3><p>A passionate Computer Science and Engineering (AI & ML) student at SRM Institute of Science and Technology, Trichy Campus.</p></div>");
+    html.append("<div class='team-card'><img src='/images/chethan.jpg'><h3>B Sai Chethan</h3><p>A passionate Computer Science and Engineering (AI & ML) student at SRM Institute of Science and Technology, Trichy Campus.</p></div>");
+    html.append("<div class='team-card'><img src='/images/nikhil.jpg'><h3>B Sai Nikhil</h3><p>A passionate Computer Science and Engineering (AI & ML) student at SRM Institute of Science and Technology, Trichy Campus.</p></div>");
+    html.append("</div>");
+
+    html.append("<div class='guide-card'><h3>Dr. Naresh Kumar</h3><p>Faculty Guide<br>SRM Institute of Science and Technology</p></div>");
+
+    html.append("<div class='footer-links'>");
+    html.append("<a href='/about'>About</a> | ");
+    html.append("<a href='/privacy'>Privacy Policy</a> | ");
+    html.append("<a href='/contact'>Contact</a>");
+    html.append("</div>");
+
+    html.append("</div></body></html>");
+    return html.toString();
+}
+
 
     private static String getCategoryPage(String category) {
         StringBuilder html = new StringBuilder();
@@ -391,3 +423,4 @@ public class NewsWebApp {
         return articlesList;
     }
 }
+
