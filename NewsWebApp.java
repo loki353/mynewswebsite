@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class NewsWebApp {
-    private static final String API_KEY = "9dd57f7234b64b9288524c29a065fe57"; // your API key
+    private static final String API_KEY = "9dd57f7234b64b9288524c29a065fe57";
     private static final int PORT = 8080;
     private static final AtomicInteger visitorCount = new AtomicInteger(0);
 
@@ -35,9 +35,27 @@ public class NewsWebApp {
             }
         });
 
+        server.createContext("/about", exchange -> serveStaticFile(exchange, "about.html"));
+        server.createContext("/privacy", exchange -> serveStaticFile(exchange, "privacy.html"));
+        server.createContext("/contact", exchange -> serveStaticFile(exchange, "contact.html"));
+
         server.setExecutor(null);
-        System.out.println("✅ Server running at http://localhost:" + PORT);
+        System.out.println("Server running at http://localhost:" + PORT);
         server.start();
+    }
+
+    private static void serveStaticFile(HttpExchange exchange, String fileName) throws IOException {
+        File file = new File(fileName);
+        if (!file.exists()) {
+            exchange.sendResponseHeaders(404, -1);
+            return;
+        }
+        exchange.getResponseHeaders().set("Content-Type", "text/html; charset=UTF-8");
+        byte[] bytes = java.nio.file.Files.readAllBytes(file.toPath());
+        exchange.sendResponseHeaders(200, bytes.length);
+        OutputStream os = exchange.getResponseBody();
+        os.write(bytes);
+        os.close();
     }
 
     static class MainHandler implements HttpHandler {
@@ -95,25 +113,23 @@ public class NewsWebApp {
         
         html.append("<div class='container'>");
 
-        // Hero section with About Website paragraph
         html.append("<div class='hero'>");
-html.append("<h1>Articlyst News Aggregator</h1>");
-html.append("<p>🗞️ Welcome to Articlyst – Your Daily Dose of Real News!<br><br>"
-    + "Tired of scrolling endlessly to find what’s happening around you?<br>"
-    + "Articlyst brings everything you need — in one smart, simple, and beautiful place.<br><br>"
-    + "We collect the latest and most trusted news from reliable sources and deliver it to you instantly. "
-    + "From breaking national headlines to global events, technology trends, business updates, sports highlights, "
-    + "health breakthroughs, and entertainment buzz — you’ll find it all here!<br><br>"
-    + "Our goal is to make news reading easy, fast, and enjoyable.<br>"
-    + "Every story on Articlyst is carefully selected and neatly presented so that you can stay updated without wasting time. "
-    + "Whether you’re a student, professional, or just someone who loves staying informed, Articlyst is made for you.<br><br>"
-    + "Discover trending topics, inspiring stories, and must-know updates that shape our world every day. "
-    + "With Articlyst, you don’t just read the news — you experience it.<br><br>"
-    + "📱 Simple to use, 💬 easy to understand, and ⚡ powered by real-time updates — "
-    + "Articlyst keeps you closer to the world like never before.<br><br>"
-    + "Explore. Learn. Stay Ahead — with Articlyst: Where Every Headline Matters</p>");
-html.append("</div>");
-
+        html.append("<h1>Articlyst News Aggregator</h1>");
+        html.append("<p>🗞️ Welcome to Articlyst – Your Daily Dose of Real News!<br><br>"
+                + "Tired of scrolling endlessly to find what’s happening around you?<br>"
+                + "Articlyst brings everything you need — in one smart, simple, and beautiful place.<br><br>"
+                + "We collect the latest and most trusted news from reliable sources and deliver it to you instantly. "
+                + "From breaking national headlines to global events, technology trends, business updates, sports highlights, "
+                + "health breakthroughs, and entertainment buzz — you’ll find it all here!<br><br>"
+                + "Our goal is to make news reading easy, fast, and enjoyable.<br>"
+                + "Every story on Articlyst is carefully selected and neatly presented so you can stay updated without wasting time. "
+                + "Whether you’re a student, professional, or just someone who loves staying informed, Articlyst is made for you.<br><br>"
+                + "Discover trending topics, inspiring stories, and must-know updates that shape our world every day. "
+                + "With Articlyst, you don’t just read the news — you experience it.<br><br>"
+                + "📱 Simple to use, 💬 easy to understand, and ⚡ powered by real-time updates — "
+                + "Articlyst keeps you closer to the world like never before.<br><br>"
+                + "Explore. Learn. Stay Ahead — with Articlyst: Where Every Headline Matters</p>");
+        html.append("</div>");
 
         html.append("<h2>Explore Categories</h2>");
         html.append("<div class='categories'>");
@@ -130,7 +146,7 @@ html.append("</div>");
         html.append("<div class='team'>");
         html.append("<div class='team-card'><img src='/images/loki.jpg'><h3>B Lokesh</h3><p>A passionate Computer Science and Engineering (AI & ML) student at SRM Institute of Science and Technology, Trichy Campus.</p></div>");
         html.append("<div class='team-card'><img src='/images/chethan.jpg'><h3>B Sai Chethan</h3><p>A passionate Computer Science and Engineering (AI & ML) student at SRM Institute of Science and Technology, Trichy Campus.</p></div>");
-        html.append("<div class='team-card'><img src='/images/nikhil.jpg'><h3>B Sai Nikhil</h3><p>A passionate Computer Science and Engineering (AI & ML) student at SRM Institute of Science and Technology, Trichy Campus.</p></div>");
+        html.append("<div class='team-card'><img src='/images/nikhil.jpg'><h3>B Sai Nikhil</h3><p"A passionate Computer Science and Engineering (AI & ML) student at SRM Institute of Science and Technology, Trichy Campus.</p></div>");
         html.append("</div>");
 
         html.append("<div class='guide-card'><h3>Dr. Naresh Kumar</h3><p>Faculty Guide<br>SRM Institute of Science and Technology</p></div>");
@@ -233,4 +249,4 @@ html.append("</div>");
         }
         return articlesList;
     }
-} 
+}
