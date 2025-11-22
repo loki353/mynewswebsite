@@ -35,27 +35,51 @@ public class NewsWebApp {
             }
         });
 
-        server.createContext("/about", exchange -> serveStaticFile(exchange, "about.html"));
-        server.createContext("/privacy", exchange -> serveStaticFile(exchange, "privacy.html"));
-        server.createContext("/contact", exchange -> serveStaticFile(exchange, "contact.html"));
+        server.createContext("/about", exchange -> {
+            try {
+                String response = getAboutPage();
+                exchange.getResponseHeaders().set("Content-Type", "text/html; charset=UTF-8");
+                exchange.sendResponseHeaders(200, response.getBytes(StandardCharsets.UTF_8).length);
+                try (OutputStream os = exchange.getResponseBody()) {
+                    os.write(response.getBytes(StandardCharsets.UTF_8));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                exchange.sendResponseHeaders(500, -1);
+            }
+        });
+
+        server.createContext("/privacy", exchange -> {
+            try {
+                String response = getPrivacyPage();
+                exchange.getResponseHeaders().set("Content-Type", "text/html; charset=UTF-8");
+                exchange.sendResponseHeaders(200, response.getBytes(StandardCharsets.UTF_8).length);
+                try (OutputStream os = exchange.getResponseBody()) {
+                    os.write(response.getBytes(StandardCharsets.UTF_8));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                exchange.sendResponseHeaders(500, -1);
+            }
+        });
+
+        server.createContext("/contact", exchange -> {
+            try {
+                String response = getContactPage();
+                exchange.getResponseHeaders().set("Content-Type", "text/html; charset=UTF-8");
+                exchange.sendResponseHeaders(200, response.getBytes(StandardCharsets.UTF_8).length);
+                try (OutputStream os = exchange.getResponseBody()) {
+                    os.write(response.getBytes(StandardCharsets.UTF_8));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                exchange.sendResponseHeaders(500, -1);
+            }
+        });
 
         server.setExecutor(null);
         System.out.println("Server running at http://localhost:" + PORT);
         server.start();
-    }
-
-    private static void serveStaticFile(HttpExchange exchange, String fileName) throws IOException {
-        File file = new File(fileName);
-        if (!file.exists()) {
-            exchange.sendResponseHeaders(404, -1);
-            return;
-        }
-        exchange.getResponseHeaders().set("Content-Type", "text/html; charset=UTF-8");
-        byte[] bytes = java.nio.file.Files.readAllBytes(file.toPath());
-        exchange.sendResponseHeaders(200, bytes.length);
-        OutputStream os = exchange.getResponseBody();
-        os.write(bytes);
-        os.close();
     }
 
     static class MainHandler implements HttpHandler {
@@ -87,7 +111,7 @@ public class NewsWebApp {
         StringBuilder html = new StringBuilder();
         html.append("<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'>");
         html.append("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
-        html.append("<title>Articylst - News Aggregator</title>");
+        html.append("<title>Articlyst - News Aggregator</title>");
         html.append("<style>");
         html.append(":root { --bg:#0b0c10; --text:#e1e1e1; --card:#1f2833; --primary:#66fcf1; }");
         html.append("[data-theme='light'] { --bg:#ffffff; --text:#0b0c10; --card:#f4f4f4; --primary:#0077cc; }");
@@ -110,9 +134,7 @@ public class NewsWebApp {
         html.append("</style>");
         html.append("<script>function toggleTheme(){let theme=document.documentElement.getAttribute('data-theme');document.documentElement.setAttribute('data-theme',theme==='light'?'dark':'light');}</script>");
         html.append("</head><body data-theme='light'>");
-        
         html.append("<div class='container'>");
-
         html.append("<div class='hero'>");
         html.append("<h1>Articlyst News Aggregator</h1>");
         html.append("<p>🗞️ Welcome to Articlyst – Your Daily Dose of Real News!<br><br>"
@@ -146,7 +168,7 @@ public class NewsWebApp {
         html.append("<div class='team'>");
         html.append("<div class='team-card'><img src='/images/loki.jpg'><h3>B Lokesh</h3><p>A passionate Computer Science and Engineering (AI & ML) student at SRM Institute of Science and Technology, Trichy Campus.</p></div>");
         html.append("<div class='team-card'><img src='/images/chethan.jpg'><h3>B Sai Chethan</h3><p>A passionate Computer Science and Engineering (AI & ML) student at SRM Institute of Science and Technology, Trichy Campus.</p></div>");
-        html.append("<div class='team-card'><img src='/images/nikhil.jpg'><h3>B Sai Nikhil</h3><p"A passionate Computer Science and Engineering (AI & ML) student at SRM Institute of Science and Technology, Trichy Campus.</p></div>");
+        html.append("<div class='team-card'><img src='/images/nikhil.jpg'><h3>B Sai Nikhil</h3><p>A passionate Computer Science and Engineering (AI & ML) student at SRM Institute of Science and Technology, Trichy Campus.</p></div>");
         html.append("</div>");
 
         html.append("<div class='guide-card'><h3>Dr. Naresh Kumar</h3><p>Faculty Guide<br>SRM Institute of Science and Technology</p></div>");
@@ -191,6 +213,125 @@ public class NewsWebApp {
                 html.append("</div>");
             }
         }
+        html.append("</div></body></html>");
+        return html.toString();
+    }
+
+    private static String getAboutPage() {
+        StringBuilder html = new StringBuilder();
+        html.append("<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'>");
+        html.append("<title>About Us - Articlyst</title>");
+        html.append("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
+        html.append("<style>");
+        html.append("body{font-family:Arial,sans-serif;margin:0;padding:20px;background:#0b0c10;color:#e1e1e1;}");
+        html.append("h1{color:#66fcf1;}");
+        html.append("a{color:#66fcf1;text-decoration:none;}");
+        html.append("a:hover{text-decoration:underline;}");
+        html.append(".container{max-width:900px;margin:0 auto;line-height:1.7;}");
+        html.append("ul{margin-left:20px;}");
+        html.append("</style>");
+        html.append("</head><body>");
+        html.append("<div class='container'>");
+        html.append("<h1>About Articlyst</h1>");
+        html.append("<p>Articlyst is a modern news aggregator designed to help you stay informed quickly and easily. ");
+        html.append("Instead of searching multiple websites, you can browse trending topics, latest headlines, and important stories in one place.</p>");
+        html.append("<p>Articlyst fetches news headlines and short descriptions from trusted external news providers ");
+        html.append("and redirects users to the original publisher’s website to read the full article. ");
+        html.append("We do not own or host the full content of these articles.</p>");
+        html.append("<p>Our goal is to provide:</p>");
+        html.append("<ul>");
+        html.append("<li>Clean and distraction-free browsing of news categories</li>");
+        html.append("<li>Fast access to breaking and trending stories</li>");
+        html.append("<li>Respect for original publishers by redirecting to their websites</li>");
+        html.append("</ul>");
+        html.append("<p>Whether you are interested in India, world news, business, science, sports, health, ");
+        html.append("or entertainment, Articlyst brings everything together in a simple and user-friendly interface.</p>");
+        html.append("<p>If you have any questions or suggestions, feel free to contact us from the ");
+        html.append("<a href='/contact'>Contact</a> page.</p>");
+        html.append("<p>Back to <a href='/'>Home</a></p>");
+        html.append("</div></body></html>");
+        return html.toString();
+    }
+
+    private static String getPrivacyPage() {
+        StringBuilder html = new StringBuilder();
+        html.append("<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'>");
+        html.append("<title>Privacy Policy - Articlyst</title>");
+        html.append("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
+        html.append("<style>");
+        html.append("body{font-family:Arial,sans-serif;margin:0;padding:20px;background:#0b0c10;color:#e1e1e1;}");
+        html.append("h1{color:#66fcf1;}");
+        html.append("h2{color:#66fcf1;margin-top:25px;}");
+        html.append("a{color:#66fcf1;text-decoration:none;}");
+        html.append("a:hover{text-decoration:underline;}");
+        html.append(".container{max-width:900px;margin:0 auto;line-height:1.7;}");
+        html.append("ul{margin-left:20px;}");
+        html.append("</style>");
+        html.append("</head><body>");
+        html.append("<div class='container'>");
+        html.append("<h1>Privacy Policy for Articlyst</h1>");
+        html.append("<p>This Privacy Policy describes how Articlyst, accessible from <strong>articlyst.playwithchethan.com</strong>, ");
+        html.append("handles information when you use our website.</p>");
+        html.append("<h2>Information We Collect</h2>");
+        html.append("<p>Articlyst does not ask users to create an account or submit personal details directly. ");
+        html.append("However, like many websites, some non-personal information may be collected automatically, such as:</p>");
+        html.append("<ul>");
+        html.append("<li>IP address (may be logged by server or analytics tools)</li>");
+        html.append("<li>Browser type and version</li>");
+        html.append("<li>Device type and operating system</li>");
+        html.append("<li>Pages visited and time spent on the site</li>");
+        html.append("</ul>");
+        html.append("<h2>Cookies and Third-Party Services</h2>");
+        html.append("<p>We may use third-party services such as analytics or advertising networks that use cookies or similar technologies ");
+        html.append("to collect information for usage statistics and personalized ads.</p>");
+        html.append("<p>These third parties may use cookies to:</p>");
+        html.append("<ul>");
+        html.append("<li>Measure traffic and usage patterns on the site</li>");
+        html.append("<li>Serve relevant advertisements</li>");
+        html.append("</ul>");
+        html.append("<p>You can control or disable cookies in your browser settings. ");
+        html.append("Please refer to your browser’s help section for details.</p>");
+        html.append("<h2>News Content and External Links</h2>");
+        html.append("<p>Articlyst is a news aggregator. We display news headlines, short descriptions, and links ");
+        html.append("that redirect you to the original publisher’s website to read the full article.</p>");
+        html.append("<p>We are not responsible for the content, privacy policies, or practices of any third-party websites ");
+        html.append("you visit from our links. We recommend reviewing the Privacy Policy of each website you visit.</p>");
+        html.append("<h2>Data Security</h2>");
+        html.append("<p>We aim to keep our systems reasonably secure. However, no method of transmission or storage ");
+        html.append("over the internet is 100% secure, and we cannot guarantee absolute security.</p>");
+        html.append("<h2>Changes to This Privacy Policy</h2>");
+        html.append("<p>We may update this Privacy Policy from time to time. Any changes will be posted on this page, ");
+        html.append("and the updated date may be revised accordingly.</p>");
+        html.append("<h2>Contact Us</h2>");
+        html.append("<p>If you have any questions about this Privacy Policy, you can contact us via the ");
+        html.append("<a href='/contact'>Contact</a> page.</p>");
+        html.append("<p>Back to <a href='/'>Home</a></p>");
+        html.append("</div></body></html>");
+        return html.toString();
+    }
+
+    private static String getContactPage() {
+        StringBuilder html = new StringBuilder();
+        html.append("<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'>");
+        html.append("<title>Contact Us - Articlyst</title>");
+        html.append("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
+        html.append("<style>");
+        html.append("body{font-family:Arial,sans-serif;margin:0;padding:20px;background:#0b0c10;color:#e1e1e1;}");
+        html.append("h1{color:#66fcf1;}");
+        html.append("a{color:#66fcf1;text-decoration:none;}");
+        html.append("a:hover{text-decoration:underline;}");
+        html.append(".container{max-width:600px;margin:0 auto;line-height:1.7;}");
+        html.append(".box{background:#1f2833;padding:20px;border-radius:8px;}");
+        html.append("</style>");
+        html.append("</head><body>");
+        html.append("<div class='container'>");
+        html.append("<h1>Contact Us</h1>");
+        html.append("<div class='box'>");
+        html.append("<p>If you have any questions, feedback, or suggestions about Articlyst, you can reach us at:</p>");
+        html.append("<p><strong>Email:</strong> <a href='mailto:articlyst@gmail.com'>articlyst@gmail.com</a></p>");
+        html.append("<p>We will do our best to respond as soon as possible.</p>");
+        html.append("</div>");
+        html.append("<p style='margin-top:20px;'>Back to <a href='/'>Home</a></p>");
         html.append("</div></body></html>");
         return html.toString();
     }
