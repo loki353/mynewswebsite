@@ -133,8 +133,7 @@ html.append("</div>");
         html.append("<div class='team-card'><img src='/images/nikhil.jpg'><h3>B Sai Nikhil</h3><p>A passionate Computer Science and Engineering (AI & ML) student at SRM Institute of Science and Technology, Trichy Campus.</p></div>");
         html.append("</div>");
 
-        html.append("<div class='guide-card'><h3>Dr. Naresh Kumar</h3><p>Faculty Guide<br>SRM Institute of Science and Technology</p></div>");
-        html.append("</div></body></html>");
+       
         return html.toString();
     }
 
